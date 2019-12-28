@@ -23,6 +23,7 @@ Docker、MongoDB、go-micro、grpc、protobuf、MATS、JWT、Postgres、Kubernet
 
 * 0.1 基本的grpc
 * 0.2 添加GetConsignments方法
+* 0.3 引入docker
 
 ## 参考
 1. [https://github.com/Birjemin/gin-structure](https://github.com/Birjemin/gin-structure)
