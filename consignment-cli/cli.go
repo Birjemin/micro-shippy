@@ -5,6 +5,7 @@ import (
     "encoding/json"
     pb "github.com/birjemin/micro-shippy/consignment-service/proto/consignment"
     "github.com/micro/go-micro"
+    "github.com/micro/go-micro/metadata"
     "io/ioutil"
     "log"
     "os"
@@ -35,6 +36,7 @@ func main() {
     if len(os.Args) > 1 {
         file = os.Args[1]
     }
+    token := os.Getenv("TOKEN")
 
     consignment, err := parseFile(file)
 
@@ -42,13 +44,17 @@ func main() {
         log.Fatalf("Could not parse file: %v", err)
     }
 
-    r, err := client.CreateConsignment(context.Background(), consignment)
+    ctx := metadata.NewContext(context.Background(), map[string]string{
+        "token": token,
+    })
+
+    r, err := client.CreateConsignment(ctx, consignment)
     if err != nil {
-        log.Fatalf("Could not greet: %v", err)
+        log.Fatalf("Could not create: %v", err)
     }
     log.Printf("Created: %t", r.Created)
 
-    getAll, err := client.GetConsignments(context.Background(), &pb.GetRequest{})
+    getAll, err := client.GetConsignments(ctx, &pb.GetRequest{})
     if err != nil {
         log.Fatalf("Could not list consignments: %v", err)
     }
