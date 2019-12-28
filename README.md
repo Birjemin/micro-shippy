@@ -26,6 +26,7 @@ Docker、MongoDB、go-micro、grpc、protobuf、MATS、JWT、Postgres、Kubernet
 * 0.3 引入docker
 * 0.4 从grpc到go-micro
 * 0.5 增加货船服务
+* 0.6 引入docker-compose编排
 
 ## 参考
 1. [https://github.com/Birjemin/gin-structure](https://github.com/Birjemin/gin-structure)
