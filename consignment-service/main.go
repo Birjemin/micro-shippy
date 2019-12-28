@@ -3,7 +3,6 @@ package main
 import (
     "context"
     "google.golang.org/grpc"
-    "google.golang.org/grpc/reflection"
     "log"
     "net"
     "sync"
@@ -74,9 +73,6 @@ func main() {
     // implementation into the auto-generated interface code for our
     // protobuf definition.
     pb.RegisterShippingServiceServer(s, &service{repo})
-
-    // Register reflection service on gRPC server.
-    reflection.Register(s)
 
     log.Println("Running on port:", port)
     if err := s.Serve(lis); err != nil {
