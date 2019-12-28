@@ -4,6 +4,9 @@ services:
   consignment-cli:
     build: ./consignment-cli
 
+  user-cli:
+    build: ./user-cli
+
   consignment-service:
     build: ./consignment-service
     environment:
@@ -14,7 +17,21 @@ services:
     environment:
       DB_HOST: "datastore:27017"
 
+  user-service:
+    build: ./user-service
+    environment:
+      DB_NAME: "postgres"
+      DB_HOST: "database"
+      DB_PORT: "5432"
+      DB_USER: "postgres"
+      DB_PASSWORD: "postgres"
+
   datastore:
     image: mongo
     ports:
       - "27017:27017"
+
+  database:
+    image: postgres
+    ports:
+      - "5432:5432"
