@@ -3,6 +3,7 @@ package main
 import (
     "errors"
     pb "github.com/birjemin/micro-shippy/user-service/proto/user"
+    "github.com/micro/go-micro"
     "golang.org/x/crypto/bcrypt"
     "golang.org/x/net/context"
     "log"
@@ -11,6 +12,7 @@ import (
 type service struct {
     repo         Repository
     tokenService Authable
+    Publisher    micro.Publisher
 }
 
 func (srv *service) Get(ctx context.Context, req *pb.User, res *pb.Response) error {
@@ -65,6 +67,11 @@ func (srv *service) Create(ctx context.Context, req *pb.User, res *pb.Response) 
         return err
     }
     res.User = req
+
+    // publisher handle
+    if err := srv.Publisher.Publish(ctx, req); err != nil {
+        return err
+    }
     return nil
 }
 

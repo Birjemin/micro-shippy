@@ -30,6 +30,7 @@ Docker、MongoDB、go-micro、grpc、protobuf、NATS、JWT、Postgres、Kubernet
 * 0.7 引入MongoDB
 * 0.8 引入user服务和Postgres
 * 0.9 引入jwt鉴权
+* 1.0 引入Pubsub订阅
 
 ## 参考
 1. [https://github.com/Birjemin/gin-structure](https://github.com/Birjemin/gin-structure)

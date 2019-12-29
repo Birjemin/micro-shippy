@@ -28,6 +28,9 @@ services:
       DB_USER: "postgres"
       DB_PASSWORD: "postgres"
 
+  email-service:
+    build: ./email-service
+
   datastore:
     image: mongo
     ports:
