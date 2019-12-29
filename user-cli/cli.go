@@ -2,8 +2,8 @@ package main
 
 import (
     pb "github.com/birjemin/micro-shippy/user-service/proto/user"
+    "github.com/micro/go-micro"
     microclient "github.com/micro/go-micro/client"
-    "github.com/micro/go-micro/config/cmd"
     "golang.org/x/net/context"
     "log"
     "os"
@@ -11,7 +11,8 @@ import (
 
 func main() {
 
-    cmd.Init()
+    service := micro.NewService(micro.Name("go.micro.cli.user"))
+    service.Init()
 
     // Create new greeter client
     client := pb.NewUserServiceClient("go.micro.srv.user", microclient.DefaultClient)
