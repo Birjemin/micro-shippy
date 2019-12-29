@@ -1,18 +1,21 @@
 package main
 
 import (
+    "encoding/json"
     "errors"
     pb "github.com/birjemin/micro-shippy/user-service/proto/user"
-    "github.com/micro/go-micro"
+    "github.com/micro/go-micro/broker"
     "golang.org/x/crypto/bcrypt"
     "golang.org/x/net/context"
     "log"
 )
 
+const topic = "user.created"
+
 type service struct {
     repo         Repository
     tokenService Authable
-    Publisher    micro.Publisher
+    Publisher    broker.Broker
 }
 
 func (srv *service) Get(ctx context.Context, req *pb.User, res *pb.Response) error {
@@ -68,9 +71,30 @@ func (srv *service) Create(ctx context.Context, req *pb.User, res *pb.Response) 
     }
     res.User = req
 
-    // publisher handle
-    if err := srv.Publisher.Publish(ctx, req); err != nil {
+    // 发布带有用户所有信息的消息
+    if err := srv.publishEvent(req); err != nil {
         return err
+    }
+    return nil
+}
+
+func (srv *service) publishEvent(user *pb.User) error {
+    body, err := json.Marshal(user)
+    if err != nil {
+        return err
+    }
+
+    msg := &broker.Message{
+        Header: map[string]string{
+            "id": user.Id,
+        },
+        Body: body,
+    }
+    log.Printf("[pub send..]: %v\n", user)
+
+    // send user.created topic message
+    if err := srv.Publisher.Publish(topic, msg); err != nil {
+        log.Fatalf("[pub] failed: %v\n", err)
     }
     return nil
 }

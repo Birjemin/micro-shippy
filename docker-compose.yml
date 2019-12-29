@@ -27,9 +27,14 @@ services:
       DB_PORT: "5432"
       DB_USER: "postgres"
       DB_PASSWORD: "postgres"
+      MICRO_BROKER: "nats"
+      MICRO_BROKER_ADDRESS: "nats"
 
   email-service:
     build: ./email-service
+    environment:
+      MICRO_BROKER: "nats"
+      MICRO_BROKER_ADDRESS: "nats"
 
   datastore:
     image: mongo
@@ -40,3 +45,8 @@ services:
     image: postgres
     ports:
       - "5432:5432"
+
+  nats:
+    image: nats
+    ports:
+      - 4222:4222
