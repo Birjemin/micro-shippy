@@ -1,6 +1,15 @@
 version: '3.1'
 
 services:
+
+  web:
+    command: web
+    image: micro/micro:latest
+    ports:
+      - "8182:8082"
+    environment:
+      MICRO_ADDRESS: ":8082"
+
   consignment-cli:
     build: ./consignment-cli
     environment:
