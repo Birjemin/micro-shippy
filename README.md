@@ -33,6 +33,7 @@ Docker、MongoDB、go-micro、grpc、protobuf、NATS、JWT、Postgres、Kubernet
 * 1.0 引入Pubsub订阅
 * 1.1 从Pubsub订阅到NATS
 * 1.2 开启web端交互
+* 1.3 开启api端交互
 
 ## 参考
 1. [https://github.com/Birjemin/gin-structure](https://github.com/Birjemin/gin-structure)

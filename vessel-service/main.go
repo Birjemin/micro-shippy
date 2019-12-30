@@ -12,15 +12,15 @@ const (
     defaultHost = "localhost:27017"
 )
 
-func createDummyData(repo Repository) {
-    defer repo.Close()
-    vessels := []*pb.Vessel{
-        {Id: "vessel001", Name: "Kane's Salty Secret", MaxWeight: 200000, Capacity: 500},
-    }
-    for _, v := range vessels {
-        repo.Create(v)
-    }
-}
+//func createDummyData(repo Repository) {
+//    defer repo.Close()
+//    vessels := []*pb.Vessel{
+//        {Id: "vessel001", Name: "Kane's Salty Secret", MaxWeight: 200000, Capacity: 500},
+//    }
+//    for _, v := range vessels {
+//        repo.Create(v)
+//    }
+//}
 
 func main() {
 
@@ -37,9 +37,9 @@ func main() {
         log.Fatalf("Error connecting to datastore: %v", err)
     }
 
-    repo := &VesselRepository{session.Copy()}
+    //repo := &VesselRepository{session.Copy()}
 
-    createDummyData(repo)
+    //createDummyData(repo)
 
     srv := micro.NewService(
         micro.Name("go.micro.srv.vessel"),
